@@ -27,7 +27,7 @@ export const useSocket = () => {
 
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   // const { user } = useUser();
-  const defaultAvatar = 'http://path/to/default/avatar.jpg'; // Fallback to a default avatar if necessary
+  const defaultAvatar = '/gamer.png'; // Fallback to a default avatar if necessary
   const [socket, setSocket] = useState<Socket>();
   const [messages, setMessages] = useState<Message[]>([]);
     //@ts-ignore
@@ -46,7 +46,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const _socket = io('http://192.168.1.2:8000');
+    const _socket = io('http://localhost:8000');
     _socket.on('message', onMessageRec);
     setSocket(_socket);
 

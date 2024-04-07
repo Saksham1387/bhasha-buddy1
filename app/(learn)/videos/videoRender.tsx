@@ -18,7 +18,7 @@ const YouTubeVideoCard = ({ videoId, title, description }) => {
         duration: 0.3,
         delay: 0.5,
         ease: [0, 0.71, 0.2, 1.01]
-      }} className='mt-3 shadow-lg rounded-2xl p-4 '>
+      }} className='mt-3 shadow-lg rounded-2xl p-4 dark:bg-slate-900 '>
         
       <iframe
         width="350"
@@ -33,7 +33,7 @@ const YouTubeVideoCard = ({ videoId, title, description }) => {
       <div className="video-info">
         <h2 className='text-xl m-2'>{title}</h2>
         <p>{description}</p>
-        <Button onClick={() => window.open(`https://www.youtube.com/watch?v=${videoId}`)}>Watch</Button>
+        <Button onClick={() => window.open(`https://www.youtube.com/watch?v=${videoId}`)} className='dark:bg-violet-500 dark:text-zinc-200'>Watch</Button>
       </div>
     </motion.div>
     
