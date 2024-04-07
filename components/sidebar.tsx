@@ -7,6 +7,9 @@ import React, { useState } from 'react';
 import { SidebarItem } from "./sidebar-items";
 import { useSidebar } from "@/app/(learn)/layout";
 import { ModeToggle } from "./theme-toggle";
+import { signIn, signOut } from "next-auth/react"
+import { Button } from "./ui/button";
+
 
 type Props = {
   className?: string;
@@ -88,7 +91,7 @@ export const Sidebar = ({ className }: Props) => {
         {/* Clerk components */}
         <ModeToggle ></ModeToggle>
 
-       
+        <Button size="lg" className='dark:bg-violet-800 dark:text-white mb-2' onClick={() => signOut()}>Logout</Button> 
       </div>
     </div>
   );

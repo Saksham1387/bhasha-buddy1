@@ -19,7 +19,7 @@ const MyDiary = () => {
   const [blogs, setBlogs] = useState([]);
   
   const handleCreateEntry = async()=>{
-    const response = await fetch('http://localhost:3000/create-blog', {
+    const response = await fetch('http://localhost:3002/create-blog', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const MyDiary = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:3000/all-blogs');
+        const response = await fetch('http://localhost:3002/all-blogs');
         if (!response.ok) {
           throw new Error('Failed to fetch blogs');
         }

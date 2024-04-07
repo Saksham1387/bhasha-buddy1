@@ -89,11 +89,11 @@ export default function Home() {
           
             
           
-                <Button size="lg" variant="secondary" className="w-full">
+                <Button size="lg" variant="secondary" className="w-full" onClick={() => signIn()}>
                   Get Started
                 </Button>
               
-                <Button size="lg" variant="primaryOutline" className="bg-transparent dark:outline-violet-500 dark:hover:bg-indigo-400 dark:hover:outline-transparent hover:text-gray-900 w-full ">
+                <Button onClick={() => signIn()} size="lg" variant="primaryOutline" className="bg-transparent dark:outline-violet-500 dark:hover:bg-indigo-400 dark:hover:outline-transparent hover:text-gray-900 w-full ">
                   I already have an account
                 </Button>
               

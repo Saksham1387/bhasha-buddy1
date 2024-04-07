@@ -226,12 +226,13 @@ import Image from "next/image";
 import Link from "next/link";
 import TimerComponent from "./timer";
 const Stutter = () =>{
-    const [prompt, setPrompt] = useState("");
+  const [prompt, setPrompt] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [serverResponse, setServerResponse] = useState("");
   const [whisperResponse, setWhisperResponse] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [former, setFormer] = useState(false);
   const handleListen = async () => {
     if (isListening) {
       //@ts-ignore
@@ -273,6 +274,7 @@ const Stutter = () =>{
               body: formData,
             });
             const responseData = await response.json();
+            console.log(responseData.predicted_class)
             setServerResponse(responseData.predicted_class);
             setPrompt(whisperResponse);
           } catch (error) {
@@ -308,6 +310,7 @@ const Stutter = () =>{
             const blob = await response.blob();
             const imageUrl = URL.createObjectURL(blob);
             setImageUrl(imageUrl);
+            
           } catch (error) {
             console.error("Failed to fetch image:", error);
           }
@@ -398,6 +401,7 @@ const Stutter = () =>{
               className="m-5"
               variant="danger"
               onClick={() => {
+                
                 setImageUrl("");
                 setServerResponse("");
                 setWhisperResponse("");
@@ -422,7 +426,7 @@ const Stutter = () =>{
                 className="flex flex-col items-center justify-center space-y-2"
               >
                 
-                <Image className="ml-20" src="/loading-animation.gif" height={100} width={100} alt="Loading animation"/>
+                <Image className="ml-20" src="/laoding-animation.gif" height={100} width={100} alt="Loading animation"/>
                
                 <p className="text-sm text-gray-700 dark:text-gray-400 ml-20">
                   Generating Your Image...
