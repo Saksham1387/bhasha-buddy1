@@ -1,4 +1,4 @@
-<!-- <img src="./public/readme-image.png" /> -->
+<img src="./public/readme-image.png" />
 
 # Introduction
 Bhasha Buddy is a web-application targeting people with speaking Disabilities like stuttering,blocking etc.

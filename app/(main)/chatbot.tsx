@@ -57,30 +57,30 @@ const Chat: React.FC = () => {
       {isChatOpen && (
         <div className="fixed bottom-16 mb-10 mr-10 right-4 w-96">
           <div className="bg-white shadow-md rounded-3xl max-w-lg w-full">
-            <div className="p-2 border-b  text-neutral-500 bg-purple-200 rounded-t-3xl flex text-xl flex-row justify-between items-center">
+            <div className="p-2 border-b  text-neutral-500 bg-purple-200 rounded-t-3xl flex text-xl flex-row justify-between items-center dark:bg-violet-500">
                 <div className='flex flex-row'>
               <Image src="/mascot-2.png" height={40} width={40} alt="Chat with Admin Bot" className="rounded-full" />
-              <p className='text-2xl my-1 ml-2 font-bold'>Hi !</p>
+              <p className='text-2xl my-1 ml-2 font-bold dark:text-zinc-200'>Hi!</p>
               </div>
-              <button onClick={toggleChat} className="  flex items-center justify-center p-1 rounded-full">
+              <button onClick={toggleChat} className="  flex items-center justify-center p-1 rounded-full dark:bg-zinc-200">
                 <ArrowDown></ArrowDown>
             </button>
             </div>
-            <div className="p-4 h-80 overflow-y-auto">
+            <div className="p-4 h-80 overflow-y-auto dark:bg-gray-800">
               {messages.map((message, index) => (
                 <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right' : ''}`}>
-                  <span className={`inline-block px-4 py-2 rounded-smx bg-purple-300  ${message.sender === 'user' ? 'bg-indigo-100 text-black' : 'bg-gray-300 text-gray-900'}`}>
+                  <span className={`inline-block px-4 py-2 rounded-smx bg-purple-300 dark:bg-indigo-200  ${message.sender === 'user' ? 'bg-indigo-100 text-black' : 'bg-gray-300 text-gray-900'}`}>
                     {message.text}
                   </span>
                 </div>
               ))}
             </div>
             
-            <form onSubmit={handleSend} className="p-4 border-t flex">
+            <form onSubmit={handleSend} className="p-4 border-t flex dark:bg-gray-700 dark:rounded-b-3xl">
               <input
                 type="text"
                 placeholder="Ask me Anything. . ."
-                className="w-full px-3 py-2 rounded-full bg-slate-100 focus:outline-none"
+                className="w-full px-3 py-2 rounded-full bg-slate-100 focus:outline-none dark:bg-slate-600 dark:text-zinc-200"
                 onChange={handleInputChange}
                 value={userInput}
               />

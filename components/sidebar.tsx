@@ -67,12 +67,7 @@ export const Sidebar = ({ className }: Props) => {
           iconSrc="/Diary-sidebar.gif"
           isOpen={isOpen}
         />
-        <SidebarItem 
-          label="Detect" 
-          href="/detect"
-          iconSrc="/detect-sidebar.gif"
-          isOpen={isOpen}
-        />
+        
         <SidebarItem 
           label="My Videos" 
           href="/videos"
@@ -86,6 +81,12 @@ export const Sidebar = ({ className }: Props) => {
           iconSrc="/community.gif"
           isOpen={isOpen}
         />
+        {/* <SidebarItem 
+          label="Shop" 
+          href="/shop"
+          iconSrc="/shop.gif"
+          isOpen={isOpen}
+        /> */}
       </div>
       <div className="p-4">
         {/* Clerk components */}

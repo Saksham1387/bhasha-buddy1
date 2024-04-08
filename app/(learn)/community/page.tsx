@@ -23,12 +23,12 @@ const Community = () => {
 
     return (
         <div className="flex flex-col justify-between h-screen p-5 ">
-            <h1 className="text-center text-3xl font-semibold text-neutral-600 mb-5">Global Chat</h1>
+            <h1 className="text-center text-3xl font-semibold text-neutral-600 mb-5 dark:text-zinc-300">Global Chat</h1>
             
             <ul className="flex-1 overflow-auto p-2 space-y-2">
                 {messages.map(({ message, avatar }, index) => (
                     <div key={index} className="flex">
-                        <li className="bg-white p-2 rounded-lg shadow flex items-center">
+                        <li className="bg-white p-2 rounded-lg shadow flex items-center dark:bg-slate-500">
                             <Image 
                                 src={avatar || 'path/to/default/avatar.jpg'} // Fallback for missing avatar
                                 alt="User Avatar" 
@@ -46,7 +46,7 @@ const Community = () => {
                     type="text" 
                     value={message} // Controlled input
                     onChange={(e) => setMessage(e.target.value)} 
-                    className="w-full md:w-1/3 p-3 bg-neutral-100 rounded-xl shadow-sm outline-none focus:border-purple-500 transition-all"
+                    className="w-full md:w-1/3 p-3 bg-neutral-100 rounded-xl shadow-sm outline-none focus:border-purple-500 dark:bg-slate-800 transition-all"
                     placeholder="Say Something..." 
                 />
                 <Button 
