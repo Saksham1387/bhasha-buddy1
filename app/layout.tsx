@@ -1,23 +1,17 @@
-
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import { useRef } from 'react'
-
-import { makeStore, AppStore } from '../lib/store'
-
 import  Provider  from './StoreProvider';
 import {SocketProvider} from "../context/SocketProvider"
-import { Socket } from "socket.io-client";
 import { Providers } from "./providers";
 import { ThemeProvider } from "./theme-provider";
-import store from "@/store";
 
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Bhasha Buddy",
   description: "",
+  icons:"mascot-2.png",
 };
 
 export default function RootLayout({
@@ -26,9 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    
-    
-      <html lang="en">
+      <html lang="en" >
        <Provider>
         <ThemeProvider
             attribute="class"
@@ -44,7 +36,5 @@ export default function RootLayout({
         </ThemeProvider>
         </Provider>
       </html>
-    
-   
   );
 }

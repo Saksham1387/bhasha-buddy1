@@ -9,6 +9,7 @@ import { useSidebar } from "@/app/(learn)/layout";
 import { ModeToggle } from "./theme-toggle";
 import { signIn, signOut } from "next-auth/react"
 import { Button } from "./ui/button";
+import LogoutLogin from "./ui/userLoginOut";
 
 
 type Props = {
@@ -17,7 +18,6 @@ type Props = {
 
 export const Sidebar = ({ className }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
-  // const toggleSidebar = () => setIsOpen(!isOpen);
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -30,7 +30,7 @@ export const Sidebar = ({ className }: Props) => {
       <div className="pt-8 pl-3 pb-7 flex items-center justify-between">
         <Link href="/">
           <div className="flex items-center gap-x-3">
-            {isOpen && (<Image src="/mascot-1.webp" height={40} width={40} alt="Mascot" />)}
+            {isOpen && (<Image src="/mascot-2.png" height={40} width={40} alt="Mascot" />)}
            
             {isOpen && (
               <h1 className="text-lg font-extrabold text-purple-400 tracking-wide ">
@@ -57,7 +57,7 @@ export const Sidebar = ({ className }: Props) => {
         <SidebarItem 
           label="Leaderboard" 
           href="/leaderboard"
-          iconSrc="/leaderboard.gif"
+          iconSrc="/leaderboard.png"
           isOpen={isOpen}
         />
         
@@ -71,7 +71,7 @@ export const Sidebar = ({ className }: Props) => {
         <SidebarItem 
           label="My Videos" 
           href="/videos"
-          iconSrc="/learn-videos.gif"
+          iconSrc="/learn-videos.png"
           isOpen={isOpen}
         />
 
@@ -88,11 +88,11 @@ export const Sidebar = ({ className }: Props) => {
           isOpen={isOpen}
         /> */}
       </div>
-      <div className="p-4">
-        {/* Clerk components */}
+      <div className="p-4 flex flex-row gap-x-28">
         <ModeToggle ></ModeToggle>
-
-        <Button size="lg" className='dark:bg-violet-800 dark:text-white mb-2' onClick={() => signOut()}>Logout</Button> 
+        <div>
+        <LogoutLogin></LogoutLogin>
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,6 @@ export default {
     images: {
       domains: ['images.clerk.dev','img.clerk.com'],
     },
-    nextConfig
+    // nextConfig
     // any other configurations you have
   };
