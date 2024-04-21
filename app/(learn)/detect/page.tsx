@@ -4,15 +4,13 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TimerComponent from "./timer";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
-import { increment,incrementCount2 } from "@/counterSlice";
-// import { increment } from "@/slices/counterSlice";
+import { increment, incrementCount2 } from "@/counterSlice";
 
-// import { RootState, increaseAction, decreaseAction } from '@/store';
 const SpeechToText = () => {
-  const count = useSelector((state:RootState) => state.counter.count);
-  const count2 = useSelector((state:RootState) => state.counter.count2);
+  const count = useSelector((state: RootState) => state.counter.count);
+  const count2 = useSelector((state: RootState) => state.counter.count2);
   const dispatch = useDispatch();
   const [prompt, setPrompt] = useState("");
   const [isListening, setIsListening] = useState(false);
@@ -51,7 +49,7 @@ const SpeechToText = () => {
           const formData2 = new FormData();
           formData.append("audio", audioBlob, "recording.wav");
           formData2.append("file", audioBlob, "recording1.wav");
-          console.log(formData);
+          
 
           // Send the audio file to the server model
           try {
@@ -61,22 +59,19 @@ const SpeechToText = () => {
               body: formData,
             });
             const responseData = await response.json();
-            console.log(responseData.predicted_class)
+            
             setServerResponse(responseData.predicted_class);
-            if (responseData.predicted_class[0] === "blocking" || responseData.predicted_class[0] === "prolongation" || responseData.predicted_class[0] === "repetition") {
+            if (
+              responseData.predicted_class[0] === "blocking" ||
+              responseData.predicted_class[0] === "prolongation" ||
+              responseData.predicted_class[0] === "repetition"
+            ) {
               dispatch(increment());
-            }
-            else{
+            } else {
               dispatch(incrementCount2());
             }
-            console.log(serverResponse)
-            
             setPrompt(whisperResponse);
-            console.log(serverResponse)
-            
-            console.log(serverResponse)
-            console.log(count)
-           
+            console.log(count);
           } catch (error) {
             console.error("Error sending audio to the server", error);
             setServerResponse("Error sending audio to the server");
@@ -89,7 +84,6 @@ const SpeechToText = () => {
           );
           stream.getTracks().forEach((track) => track.stop());
 
-          
           //@ts-ignore
           const response = await fetch(process.env.NEXT_PUBLIC_URL_WHISPER, {
             method: "POST",
@@ -97,10 +91,10 @@ const SpeechToText = () => {
           });
           const responseData1 = await response.json();
           setWhisperResponse(responseData1.transcription);
-          
+
           try {
             //@ts-ignore
-            const response = await fetch(process.env.NEXT_PUBLIC_URL_GRAPH,{
+            const response = await fetch(process.env.NEXT_PUBLIC_URL_GRAPH, {
               method: "POST",
               body: formData2,
             });
@@ -110,12 +104,9 @@ const SpeechToText = () => {
             const blob = await response.blob();
             const imageUrl = URL.createObjectURL(blob);
             setImageUrl(imageUrl);
-            
           } catch (error) {
             console.error("Failed to fetch image:", error);
           }
-
-          
         };
 
         // Start recording
@@ -128,7 +119,6 @@ const SpeechToText = () => {
         }, 10000);
 
         setIsListening(true);
-        
       } catch (err) {
         console.error("An error occurred: " + err);
         setServerResponse("Error accessing the microphone");
@@ -136,12 +126,12 @@ const SpeechToText = () => {
     }
   };
 
-  const handleClick = ()=>{
+  const handleClick = () => {
     setImageUrl("");
     setServerResponse("");
     setWhisperResponse("");
     setIsListening(false);
-  }
+  };
 
   return (
     <div className="flex-1 flex flex-row items-center my-[15vh] gap-5 ml-[200px] mt-[30px]">
@@ -154,56 +144,65 @@ const SpeechToText = () => {
           Click on Start to Record Your Audio
         </h1>
 
-        {!serverResponse ? (<Button variant="secondary" onClick={handleListen}>
-          {isListening ? "Stop" : "Start"}
-        </Button>):("")}
+        {!serverResponse ? (
+          <Button variant="secondary" onClick={handleListen}>
+            {isListening ? "Stop" : "Start"}
+          </Button>
+        ) : (
+          ""
+        )}
 
         {isListening ? (
           <div>
-           <Image
-            src="/Animation - 1711012148146.gif"
-            height={60}
-            width={60}
-            alt="Mascot"
-            className="ml-[40px]"
-          />
-          <TimerComponent></TimerComponent>
+            <Image
+              src="/Animation - 1711012148146.gif"
+              height={60}
+              width={60}
+              alt="Mascot"
+              className="ml-[40px]"
+            />
+            <TimerComponent></TimerComponent>
           </div>
         ) : null}
 
-        
-          <div className="text-xl font-bold text-neutral-400">
-              Stutter Counter: {count}
-            </div>
+        <div className="text-xl font-bold text-neutral-400">
+          Stutter Counter: {count}
+        </div>
         {serverResponse && (
           <div>
             <p className="text-xl lg:text-3xl   font-bold text-neutral-600 max-w-[480px] text-center dark:text-white">
-            Diagnosed:
+              Diagnosed:
             </p>
-          <p className="text-xl lg:text-xl   text-neutral-600 max-w-[480px] text-center dark:text-white">
-            <p className=" capitalize">{serverResponse}</p>
-          </p>
+            <p className="text-xl lg:text-xl   text-neutral-600 max-w-[480px] text-center dark:text-white">
+              <p className=" capitalize">{serverResponse}</p>
+            </p>
           </div>
         )}
 
-        {serverResponse && (
-          whisperResponse ?((
+        {serverResponse &&
+          (whisperResponse ? (
             <div>
-              <p className="text-xl lg:text-3xl  font-bold text-neutral-600 max-w-[480px] text-center dark:text-white">You said: </p>
-            <p className="text-xl lg:text-2xl   text-neutral-600 max-w-[480px] text-center drk:text-white">
-              
-              <p className="capitalize">{whisperResponse}</p>
-            </p>
+              <p className="text-xl lg:text-3xl  font-bold text-neutral-600 max-w-[480px] text-center dark:text-white">
+                You said:{" "}
+              </p>
+              <p className="text-xl lg:text-2xl   text-neutral-600 max-w-[480px] text-center drk:text-white">
+                <p className="capitalize">{whisperResponse}</p>
+              </p>
             </div>
-          )):(
+          ) : (
             <div>
-            <Image className="ml-14"src="/loading-2.gif" height={60} width={60} alt="Loading animation"/>
-            <p className="text-sm text-gray-700 dark:text-gray-400 ml-4 dark:text-white">
-                    Analyzing Your Speech...
-            </p> 
+              <Image
+                className="ml-14"
+                src="/loading-2.gif"
+                height={60}
+                width={60}
+                alt="Loading animation"
+              />
+              <p className="text-sm text-gray-700 ml-4 dark:text-white">
+                Analyzing Your Speech...
+              </p>
             </div>
-          )
-        )}
+          ))}
 
         {serverResponse && (
           <div className="felx flex-row">
@@ -214,7 +213,7 @@ const SpeechToText = () => {
                 setImageUrl("");
                 setServerResponse("");
                 setWhisperResponse("");
-                setIsListening(false)
+                setIsListening(false);
               }}
             >
               Try Again
@@ -234,20 +233,27 @@ const SpeechToText = () => {
                 role="status"
                 className="flex flex-col items-center justify-center space-y-2"
               >
-
-                <Image className="ml-20" src="/laoding-animation.gif" height={100} width={100} alt="Loading animation"/>
+                <Image
+                  className="ml-20"
+                  src="/laoding-animation.gif"
+                  height={100}
+                  width={100}
+                  alt="Loading animation"
+                />
 
                 <p className="text-sm text-gray-700 dark:text-gray-400 ml-20">
                   Generating Your Image...
-                </p> 
+                </p>
               </div>
             ))}
-            <div className="rounded-xl shadow-xl border-neutral-300 p-3 ml-5">
-          {imageUrl && <img src={imageUrl} alt="Generated" width={500} height={500}/>}
+          <div className="rounded-xl shadow-xl border-neutral-300 p-3 ml-5">
+            {imageUrl && (
+              <img src={imageUrl} alt="Generated" width={500} height={500} />
+            )}
           </div>
         </div>
       </div>
-    </div>  
+    </div>
   );
 };
 
