@@ -27,32 +27,7 @@ export default function LogoutLogin() {
       >
         <Menu.Items className="absolute bottom-full z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm w-full text-left"
-                  )}
-                >
-                  Settings
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={() => signOut()}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block w-full px-4 py-2 text-left text-sm"
-                  )}
-                >
-                  Sign out
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
+          <Menu.Item>
               {({ active }) => (
                 <Link href={"/profile"}>
                   <button
@@ -66,6 +41,33 @@ export default function LogoutLogin() {
                 </Link>
               )}
             </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm w-full text-left"
+                  )}
+                >
+                  Settings
+                </button>
+              )}
+            </Menu.Item>
+            
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  onClick={() => signOut()}
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block w-full px-4 py-2 text-left text-sm"
+                  )}
+                >
+                  Sign out
+                </button>
+              )}
+            </Menu.Item>
+            
           </div>
         </Menu.Items>
       </Transition>
