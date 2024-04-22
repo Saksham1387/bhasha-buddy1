@@ -65,7 +65,7 @@ const SigninPage = () => {
                       type="text"
                       autoComplete="username"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 pl-3 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 pl-3 shadow-sm ring-1 ring-inset dark:text-white ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
                       onChange={(e) => {
                         username.current = e.target.value;
                       }}
@@ -87,7 +87,7 @@ const SigninPage = () => {
                       type="email"
                       autoComplete="email"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 pl-3 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 pl-3 shadow-sm ring-1 ring-inset dark:text-white ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
                       onChange={(e) => {
                         email.current = e.target.value;
                       }}
@@ -112,7 +112,7 @@ const SigninPage = () => {
                       onChange={(e) => {
                         password.current = e.target.value;
                       }}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm pl-3 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm pl-3 ring-1 ring-inset dark:text-white ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>

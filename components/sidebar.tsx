@@ -81,12 +81,12 @@ export const Sidebar = ({ className }: Props) => {
           iconSrc="/community.gif"
           isOpen={isOpen}
         />
-        {/* <SidebarItem 
-          label="Shop" 
-          href="/shop"
-          iconSrc="/shop.gif"
+        <SidebarItem 
+          label="Meditate" 
+          href="/meditation"
+          iconSrc="/lotus.png"
           isOpen={isOpen}
-        /> */}
+        />
       </div>
       <div className="p-4 flex flex-row gap-x-28">
         <ModeToggle ></ModeToggle>

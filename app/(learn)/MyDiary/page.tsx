@@ -9,6 +9,7 @@ interface DiaryEntry {
   id: string;
   title: string;
   content: string;
+  createdAt: string;
 }
 
 const MyDiary = () => {
@@ -17,7 +18,7 @@ const MyDiary = () => {
   const [blogs, setBlogs] = useState<DiaryEntry[]>([]);
 
   const handleCreateEntry = async () => {
-    const response = await fetch("http://localhost:3002/create-blog", {
+    const response = await fetch("/api/diaryEntry", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,28 +28,31 @@ const MyDiary = () => {
         content,
       }),
     });
-    if (response.status === 201) {
+    if (response.status === 200) {
       setTitle("");
       setContent("");
       alert("Dairy Saved Successfully");
     }
   };
+
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://localhost:3002/all-blogs");
+        const response = await fetch("/api/diaryEntry");
         if (!response.ok) {
           throw new Error("Failed to fetch blogs");
         }
-        const data: DiaryEntry[] = await response.json();
-        setBlogs(data); // Assuming data is an array of blog entries
+        const data = await response.json();
+        console.log(data.diaryEntries);
+        setBlogs(data.diaryEntries); // Assuming data is an array of blog entries
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
     };
-
     fetchBlogs();
-  }, []);
+  }, [content, title]);
+
   return (
     <div className=" w-full  p-10 pt-5 h-screen mb-10">
       <CustomAlert />
@@ -84,7 +88,7 @@ const MyDiary = () => {
         <div className="mb-5">
           {blogs.map((blog) => (
             <div className="mb-5">
-              <Entries id={blog.id} title={blog.title} content={blog.content} />
+              <Entries id={blog.id} title={blog.title} content={blog.content} date={blog.createdAt}/>
             </div>
           ))}
         </div>

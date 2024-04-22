@@ -1,8 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import TimerComponent from "./timer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
@@ -49,7 +48,6 @@ const SpeechToText = () => {
           const formData2 = new FormData();
           formData.append("audio", audioBlob, "recording.wav");
           formData2.append("file", audioBlob, "recording1.wav");
-          
 
           // Send the audio file to the server model
           try {
@@ -59,7 +57,7 @@ const SpeechToText = () => {
               body: formData,
             });
             const responseData = await response.json();
-            
+
             setServerResponse(responseData.predicted_class);
             if (
               responseData.predicted_class[0] === "blocking" ||
@@ -220,38 +218,6 @@ const SpeechToText = () => {
             </Button>
           </div>
         )}
-      </div>
-
-      {/* image Generated */}
-      <div>
-        <div>
-          {whisperResponse &&
-            (imageUrl ? (
-              ""
-            ) : (
-              <div
-                role="status"
-                className="flex flex-col items-center justify-center space-y-2"
-              >
-                <Image
-                  className="ml-20"
-                  src="/laoding-animation.gif"
-                  height={100}
-                  width={100}
-                  alt="Loading animation"
-                />
-
-                <p className="text-sm text-gray-700 dark:text-gray-400 ml-20">
-                  Generating Your Image...
-                </p>
-              </div>
-            ))}
-          <div className="rounded-xl shadow-xl border-neutral-300 p-3 ml-5">
-            {imageUrl && (
-              <img src={imageUrl} alt="Generated" width={500} height={500} />
-            )}
-          </div>
-        </div>
       </div>
     </div>
   );
