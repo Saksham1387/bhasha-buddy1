@@ -9,9 +9,11 @@ const handler = NextAuth({
     CredentialsProvider({
         name: 'Credentials',
         credentials: {
+          name: { label: 'name', type: 'text', placeholder: '' },
           username: { label: 'username', type: 'text', placeholder: '' },
           email: { label: 'email', type: 'text', placeholder: '' },
           password: { label: 'password', type: 'password', placeholder: '' },
+
         },
         
         //@ts-ignore
@@ -22,6 +24,7 @@ const handler = NextAuth({
             if (!user) {
               user = await prisma.user.create({
                 data: {
+                  name: credentials.name,
                   username: credentials.username,
                   email: credentials.username,
                   password: credentials.password, 

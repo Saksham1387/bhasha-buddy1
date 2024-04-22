@@ -21,7 +21,8 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     }
     const xp = user.xp;
     const username = user.username;
-    return NextResponse.json({ xp ,username}, { status: 200 });
+    const name = user.name;
+    return NextResponse.json({ xp, username,name }, { status: 200 });
   } catch (error) {
     console.error("Error fetching user data:", error);
     return NextResponse.json({ error: "Internal server error3" });
@@ -37,7 +38,7 @@ export async function POST(request: Request, res: NextApiResponse) {
 
     const userIdString = session.user.name;
     const userId = userIdString ? parseInt(userIdString, 10) : undefined;
-    console.log(userId)
+    console.log(userId);
     const res = await request.json();
     const newXP = res.newXP;
 

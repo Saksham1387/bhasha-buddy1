@@ -13,12 +13,14 @@ const SigninPage = () => {
   const username = useRef("");
   const email = useRef("");
   const password = useRef("");
+  const name = useRef("");
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const result = await signIn("credentials", {
       username: username.current,
       email: email.current,
       password: password.current,
+      name: name.current,
       redirect: false,
     });
     //@ts-expect-error
@@ -51,6 +53,27 @@ const SigninPage = () => {
                 action="#"
                 onSubmit={handleSubmit}
               >
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium leading-6 text-neutral-500"
+                  >
+                    Name
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="username"
+                      name="username"
+                      type="text"
+                      autoComplete="username"
+                      required
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 pl-3 shadow-sm ring-1 ring-inset dark:text-white ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+                      onChange={(e) => {
+                        name.current = e.target.value;
+                      }}
+                    />
+                  </div>
+                </div>
                 <div>
                   <label
                     htmlFor="email"
