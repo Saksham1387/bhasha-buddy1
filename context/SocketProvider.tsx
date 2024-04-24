@@ -2,7 +2,6 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
-
 interface SocketProviderProps {
   children?: React.ReactNode;
 }
@@ -10,11 +9,14 @@ interface SocketProviderProps {
 interface Message {
   message: string;
   avatar: string;
+  room?: string;
 }
 
 interface ISocketContext {
-  sendMessage: (msg: string) => void;
+  sendMessage: (msg: string, room?: string) => void;
   messages: Message[];
+  roomMessages: Message[];
+  joinRoom: (room: string) => void;
 }
 
 const SocketContext = React.createContext<ISocketContext | null>(null);
@@ -26,38 +28,65 @@ export const useSocket = () => {
 };
 
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
-  // const { user } = useUser();
-  const defaultAvatar = '/gamer.png'; // Fallback to a default avatar if necessary
+  const defaultAvatar = "/gamer.png";
   const [socket, setSocket] = useState<Socket>();
   const [messages, setMessages] = useState<Message[]>([]);
-    //@ts-ignore
-  const sendMessage = useCallback((msg) => {
-    if (socket && msg.trim().length > 0) {
-      const avatar =  defaultAvatar;
-      socket.emit('event:message', { message: msg, avatar: avatar });
-    }
-  }, [socket, ]);
+  const [roomMessages, setRoomMessages] = useState<Message[]>([]);
+  //@ts-ignore
+  const sendMessage = useCallback(
+    (msg: string, room?: string) => {
+      if (socket && msg.trim().length > 0) {
+        const avatar = defaultAvatar;
 
-  const onMessageRec = useCallback((msg: string) => {
-    const data = JSON.parse(msg);
-    if (data.message && data.avatar) {
-      setMessages(prev => [...prev, data]);
+        if (room) {
+          socket.emit("event:message", { room, message: msg, avatar: avatar });
+        } else {
+          socket.emit("event:message", { message: msg, avatar: avatar });
+        }
+      }
+    },
+    [socket, defaultAvatar]
+  );
+
+  const joinRoom = useCallback(
+    (room: string) => {
+      if (socket) {
+        socket.emit("joinRoom", room);
+      }
+    },
+    [socket]
+  );
+
+  const onMessageRec = useCallback((data: Message) => {
+    console.log(data);
+    if (data.room) {
+      console.log("inside onMessageRec for room ");
+      setRoomMessages((prev) => [...prev, data]);
+      console.log(roomMessages);
+    } else {
+      console.log("inside onMessageRec for global ");
+      setMessages((prev) => [...prev, data]);
     }
   }, []);
 
   useEffect(() => {
-    const _socket = io('http://localhost:8000');
-    _socket.on('message', onMessageRec);
+    //@ts-ignore
+    const _socket = io(process.env.NEXT_PUBLIC_URL_SOCKET);
+    _socket.on("room-message", onMessageRec);
+    _socket.on("message", onMessageRec);
     setSocket(_socket);
 
     return () => {
       _socket.disconnect();
-      _socket.off('message', onMessageRec);
+      _socket.off("room-message", onMessageRec);
+      _socket.off("message", onMessageRec);
     };
   }, []);
 
   return (
-    <SocketContext.Provider value={{ sendMessage, messages }}>
+    <SocketContext.Provider
+      value={{ sendMessage, messages, roomMessages, joinRoom }}
+    >
       {children}
     </SocketContext.Provider>
   );
